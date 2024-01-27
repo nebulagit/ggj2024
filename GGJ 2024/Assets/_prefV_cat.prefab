@@ -89,6 +89,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tickle spot (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5299600401731990573, guid: 235352eb6065731438a56d092543dee0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5876511552693922785, guid: 235352eb6065731438a56d092543dee0, type: 3}
       propertyPath: m_SortingOrder
       value: 1
