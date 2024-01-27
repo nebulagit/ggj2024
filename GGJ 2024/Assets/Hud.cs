@@ -5,7 +5,7 @@ public class Hud : MonoBehaviour
 {
     public static Hud Instance;
 
-    [SerializeField] TMP_Text day, money, currentAnimal, animalSatisfation;
+    [SerializeField] TMP_Text day, money, currentAnimal, animalEnjoying, animalIrritation, animalBreathing, time;
 
     public void UpdateDay()
     {
@@ -19,9 +19,15 @@ public class Hud : MonoBehaviour
     {
         currentAnimal.text =  GameplayManager.Instance.CurrentAnimal.Name;
     }
-    public void UpdateAnimalSatisfation()
+    public void UpdateAnimalStatus()
     {
-        animalSatisfation.text =  "Animal satisfation: " + ((int)GameplayManager.Instance.CurrentAnimal.Satisfaction).ToString() + "%";
+        animalEnjoying.text =  "Animal enjoying: " + ((int)GameplayManager.Instance.CurrentAnimal.Enjoying).ToString() + "%";
+        animalIrritation.text =  "Animal irritation: " + ((int)GameplayManager.Instance.CurrentAnimal.Irritation).ToString() + "%";
+        animalBreathing.text =  "Animal breathing: " + ((int)GameplayManager.Instance.CurrentAnimal.Breathing).ToString() + "%";
+    }
+    public void UpdateTime()
+    {
+        time.text =  "Time: ";
     }
 
     void Awake()

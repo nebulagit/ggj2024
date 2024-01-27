@@ -12,7 +12,7 @@ public class Animal
     [Range(2, 6)]
     [SerializeField] int baseHappyness; public int BaseHappyness { get => baseHappyness; }
     [Space(0)]
-    [Range(1, 10)]
+    [Range(2, 6)]
     [SerializeField] int baseBreath; public int BaseBreath { get => baseBreath; }
     [Range(2, 6)]
     [SerializeField] int baseAnger; public int BaseAnger { get => baseAnger; }
