@@ -36,7 +36,6 @@ public class GameplayManager : MonoBehaviour
             {
                 currentAnimal.Enjoying = ReduceEnjoying(1f);
                 currentAnimal.Irritation = ReduceIrritation(0.5f);
-                currentAnimal.Breathing = RecoverBreath(1f);
             }
             else
             {
@@ -48,6 +47,11 @@ public class GameplayManager : MonoBehaviour
                 else
                     Tickles(atualTickleSpot.IsFavorite);
             }
+            if (atualTickleSpot && atualTickleSpot.IsFavorite)
+                currentAnimal.Breathing = Mathf.Clamp(currentAnimal.Enjoying < 50 ? RecoverBreath(0.75f) : currentAnimal.Breathing - 1f + currentAnimal.Breath / 16, 0, 100);
+            else
+                currentAnimal.Breathing = RecoverBreath(1f);
+
             Hud.Instance.UpdateAnimalStatus();
 
             timeMil ++;
@@ -61,7 +65,7 @@ public class GameplayManager : MonoBehaviour
         else
         {
             if (timeSec > 0)
-                animalPrefab.transform.position = new Vector2(starting > 0 ? Mathf.Lerp(animalPrefab.transform.position.x, 0, 0.085f) : 0, animalPrefab.transform.position.y);
+                animalPrefab.transform.position = new Vector2(starting > 0 && animalPrefab.transform.position.x > 0 ? animalPrefab.transform.position.x - 0.2f : 0, animalPrefab.transform.position.y);
             else
             {
                 timeMil --;
@@ -130,6 +134,8 @@ public class GameplayManager : MonoBehaviour
 
         animalPrefab.TickleSpots[currentAnimal.FavoriteTickleSpot].IsFavorite = true;
         animalPrefab.TickleSpots[currentAnimal.DetestableTickleSpot].IsDetestable = true;
+
+        currentAnimal.Color = AnimalData.Instance.Animals[_species].AvaiableColors[(int)Mathf.Floor(Random.Range(0, AnimalData.Instance.Animals[_species].AvaiableColors.Length - 1 + 0.99f))];
     }
     void Tickles(bool _isTheFavoriteTickleSpot)
     {
@@ -140,8 +146,6 @@ public class GameplayManager : MonoBehaviour
             currentAnimal.Irritation = GetsIrritation(2f);
             currentAnimal.Enjoying = ReduceEnjoying(4f);
         }
-
-        currentAnimal.Breathing = _isTheFavoriteTickleSpot ? Mathf.Clamp(currentAnimal.Breathing - 0.7f + currentAnimal.Breath / 16, 0, 100) : RecoverBreath(0.5f);
         currentAnimal.Irritation = ReduceIrritation(1f);
     }
     float RecoverBreath(float _modifier)
@@ -167,7 +171,7 @@ public class GameplayManager : MonoBehaviour
     void ResetAnimal()
     {
         currentAnimal = GenerateAnimal();
-        animalPrefab = Instantiate(AnimalData.Instance.Animals[currentAnimal.Species].Prefab, new Vector2(100, 0), Quaternion.identity).GetComponent<AnimalPrefab>();
+        animalPrefab = Instantiate(AnimalData.Instance.Animals[currentAnimal.Species].Prefab, new Vector2(20, -0.5f), Quaternion.identity).GetComponent<AnimalPrefab>();
         DefineTickleSpots(currentAnimal, currentAnimal.Species);
         starting = 120;
         timeSec = 20;

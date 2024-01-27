@@ -298,6 +298,11 @@ MonoBehaviour:
     baseAnger: 1
     tickleSpots: 3
     avaiableColors: []
+    boredMouth: {fileID: 0}
+    happyMouth: {fileID: 0}
+    irritatedMouth: {fileID: 0}
+    laughtMouth: {fileID: 0}
+    desesperatedMouth: {fileID: 0}
   - species: Cat
     rarity: 0
     prefab: {fileID: 6112376071038287889, guid: 0580d9769d5f602489410d59bb032117, type: 3}
@@ -306,10 +311,15 @@ MonoBehaviour:
     baseAnger: 4
     tickleSpots: 6
     avaiableColors:
-    - {r: 1, g: 0.89033103, b: 0.5801887, a: 1}
-    - {r: 0.83680904, g: 0.8330811, b: 0.9150943, a: 1}
-    - {r: 0.8207547, g: 0.56910825, b: 0.6120889, a: 1}
-    - {r: 0.5703319, g: 0.4009434, b: 1, a: 1}
+    - {r: 1, g: 0.99061894, b: 0.9641509, a: 1}
+    - {r: 0.9245283, g: 0.72103995, b: 0.37504447, a: 1}
+    - {r: 0.4566037, g: 0.42645064, b: 0.43147615, a: 1}
+    - {r: 0.7509433, g: 0.59933776, b: 0.6886768, a: 1}
+    boredMouth: {fileID: 21300000, guid: a0ddeb836066e0d43aa0dd47c51c270e, type: 3}
+    happyMouth: {fileID: 21300000, guid: aec94c2333955ce4ebf7854f3e866424, type: 3}
+    irritatedMouth: {fileID: 21300000, guid: 577fe22d0b794c8439978d36ccee022b, type: 3}
+    laughtMouth: {fileID: 21300000, guid: 7f805c2e821fd734a80dd69cbf3d384c, type: 3}
+    desesperatedMouth: {fileID: 21300000, guid: 9064f06e2ffef054ea5206ef7a15ad99, type: 3}
   names:
   - Kim
   - Thomas
@@ -318,6 +328,7 @@ MonoBehaviour:
   - Babi
   - Dodo
   - Kika
+  - Baidu
 --- !u!114 &1228354685
 MonoBehaviour:
   m_ObjectHideFlags: 0

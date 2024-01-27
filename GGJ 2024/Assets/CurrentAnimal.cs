@@ -12,4 +12,6 @@ public class CurrentAnimal
     float happyness; public float Happyness { get => happyness; set => happyness = value; }
     float breath; public float Breath { get => breath; set => breath = value; }
     float anger; public float Anger { get => anger; set => anger = value; }
+    Color color;  public Color Color { get => color; set => color = value; }
+    
 }
