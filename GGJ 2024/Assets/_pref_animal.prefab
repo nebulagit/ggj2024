@@ -48,6 +48,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tickleSpots: []
+  normal: {fileID: 21300000, guid: be04f0e1874fc4143b4b27439e50ea30, type: 3}
+  calm: {fileID: 21300000, guid: 7f14c08827925ed4f86ea6e04393bcd8, type: 3}
+  bored: {fileID: 21300000, guid: a85738ec32fc438478774f730b573a51, type: 3}
+  desesperated: {fileID: 21300000, guid: bc62bdaa4a41efe429771d492f406f3c, type: 3}
+  happy: {fileID: 21300000, guid: f4826248ce1839b46a7838c54fd07c34, type: 3}
+  irrited: {fileID: 21300000, guid: fb20c94526df1644c93955fecf79fa9b, type: 3}
+  eyes: {fileID: 510172254711702925}
+  hearth: {fileID: 2942873981621206579, guid: 70b903abaec67d440a94b851e48f07fb, type: 3}
+  hearthSpawnPoint: {x: 0, y: 0, z: 0}
 --- !u!1 &3686701517579448744
 GameObject:
   m_ObjectHideFlags: 0

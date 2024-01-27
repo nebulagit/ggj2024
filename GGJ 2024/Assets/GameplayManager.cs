@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameplayManager : MonoBehaviour
@@ -8,10 +9,13 @@ public class GameplayManager : MonoBehaviour
 
     int day = 1; public int Day { get => day; }
     int money; public int Money { get => money; }
+    int timeSec; public int TimeSec { get => timeSec; }
+    int starting; public int Starting { get => starting; }
     CurrentAnimal currentAnimal; public CurrentAnimal CurrentAnimal { get => currentAnimal; }
     AnimalPrefab animalPrefab;
 
-    int starting = 120, changingAnimalTickleSpots;
+    int changingAnimalTickleSpots, timeMil = 0;
+    List<int> finishedAnimals;
 
     void Awake()
     {
@@ -19,19 +23,14 @@ public class GameplayManager : MonoBehaviour
     }
     void Start()
     {
-        currentAnimal = GenerateAnimal();
-        animalPrefab = Instantiate(AnimalData.Instance.Animals[currentAnimal.Species].Prefab, Vector2.zero, Quaternion.identity).GetComponent<AnimalPrefab>();
-        DefineTickleSpots(currentAnimal, currentAnimal.Species);
-
+        ResetAnimal();
         Hud.Instance.UpdateDay();
         Hud.Instance.UpdateMoney();
-        Hud.Instance.UpdateCurrentAnimal();
-        Hud.Instance.UpdateAnimalStatus();
     }
     void FixedUpdate()
     {
         starting = Mathf.Clamp(--starting, 0, starting);
-        if (starting == 0)
+        if (starting == 0 && timeSec > 0)
         {
             if (!atualTickleSpot)
             {
@@ -50,9 +49,35 @@ public class GameplayManager : MonoBehaviour
                     Tickles(atualTickleSpot.IsFavorite);
             }
             Hud.Instance.UpdateAnimalStatus();
+
+            timeMil ++;
+            if (timeMil >= 60)
+            {
+                timeSec --;
+                timeMil = 0;
+                Hud.Instance.UpdateTime();
+            }
+        }
+        else
+        {
+            if (timeSec > 0)
+                animalPrefab.transform.position = new Vector2(starting > 0 ? Mathf.Lerp(animalPrefab.transform.position.x, 0, 0.085f) : 0, animalPrefab.transform.position.y);
+            else
+            {
+                timeMil --;
+                animalPrefab.transform.position = new Vector2(timeMil > -120 ? 0 : animalPrefab.transform.position.x - 0.2f, animalPrefab.transform.position.y);
+                if (animalPrefab.transform.position.x <= -20)
+                {
+                    Destroy(animalPrefab);
+                    ResetAnimal();
+                }        
+            }
         }
 
-        changingAnimalTickleSpots++;
+        if (atualTickleSpot && (atualTickleSpot.IsFavorite || atualTickleSpot.IsDetestable))
+        {}
+        else
+            changingAnimalTickleSpots++;
         if (changingAnimalTickleSpots > 180)
         {
             DefineTickleSpots(currentAnimal, currentAnimal.Species);
@@ -133,10 +158,22 @@ public class GameplayManager : MonoBehaviour
     }
     float ImprovesEnjoying(float _modifier)
     {
-        return Mathf.Clamp(currentAnimal.Enjoying + (0.02f + currentAnimal.Happyness / 150) * _modifier, 0, 100);
+        return Mathf.Clamp(currentAnimal.Enjoying + (0.02f + currentAnimal.Happyness / 150) * _modifier * atualTickleSpot.Validity, 0, 100);
     }
     float GetsIrritation(float _modifier)
     {
         return Mathf.Clamp(currentAnimal.Irritation + (0.4f + currentAnimal.Anger / 40) * _modifier, 0, 100);
+    }
+    void ResetAnimal()
+    {
+        currentAnimal = GenerateAnimal();
+        animalPrefab = Instantiate(AnimalData.Instance.Animals[currentAnimal.Species].Prefab, new Vector2(100, 0), Quaternion.identity).GetComponent<AnimalPrefab>();
+        DefineTickleSpots(currentAnimal, currentAnimal.Species);
+        starting = 120;
+        timeSec = 20;
+        timeMil = 0;
+        Hud.Instance.UpdateCurrentAnimal();
+        Hud.Instance.UpdateAnimalStatus();
+        Hud.Instance.UpdateTime();
     }
 }

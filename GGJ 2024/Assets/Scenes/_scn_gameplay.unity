@@ -1345,7 +1345,7 @@ MonoBehaviour:
   animalEnjoying: {fileID: 631808133}
   animalIrritation: {fileID: 443820780}
   animalBreathing: {fileID: 1702990443}
-  time: {fileID: 0}
+  time: {fileID: 1988875078}
 --- !u!114 &1975621160
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -27,7 +27,7 @@ public class Hud : MonoBehaviour
     }
     public void UpdateTime()
     {
-        time.text =  "Time: ";
+        time.text =  "Time: " + GameplayManager.Instance.TimeSec.ToString();
     }
 
     void Awake()

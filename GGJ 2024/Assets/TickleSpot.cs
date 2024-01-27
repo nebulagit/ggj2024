@@ -6,7 +6,12 @@ public class TickleSpot : MonoBehaviour
     [SerializeField] bool isDetestable; public bool IsDetestable { get => isDetestable; set => isDetestable = value; }
 
     int index; public int Index { get => index; set => index = value; }
+    float validity = 1; public float Validity { get => validity; set => validity = value; }
 
+    void FixedUpdate()
+    {
+        validity = GameplayManager.Instance.AtualTickleSpot == this ? Mathf.Clamp(validity - 0.0025f, 0, 1) : Mathf.Clamp(validity + 0.01f, 0, 1);
+    }
     void OnMouseEnter()
     {
         GameplayManager.Instance.AtualTickleSpot = this;
