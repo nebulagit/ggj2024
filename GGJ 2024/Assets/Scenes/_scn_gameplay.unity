@@ -500,7 +500,7 @@ MonoBehaviour:
     laughtMouth: {fileID: 21300000, guid: 9eae0c314b358f54f9896c7d272632b6, type: 3}
     desesperatedMouth: {fileID: 21300000, guid: 9eae0c314b358f54f9896c7d272632b6, type: 3}
   - species: Monkey
-    rarity: 4
+    rarity: 3
     prefab: {fileID: 6112376071038287889, guid: 3ca29857d4bd6cf438a4067355aaa854, type: 3}
     baseHappyness: 5
     baseBreath: 6
@@ -533,6 +533,40 @@ MonoBehaviour:
     irritatedMouth: {fileID: 21300000, guid: 3f8be32d79db04e4da15eef380e62e8a, type: 3}
     laughtMouth: {fileID: 21300000, guid: 49bdcf5c01918534c9e09eb2b180d3b5, type: 3}
     desesperatedMouth: {fileID: 21300000, guid: d83e3c417d5876144a850b3d1e528318, type: 3}
+  - species: Hedgehog
+    rarity: 4
+    prefab: {fileID: 6112376071038287889, guid: 1be29e6469f2d51438729e685472f422, type: 3}
+    baseHappyness: 4
+    baseBreath: 3
+    baseAnger: 6
+    tickleSpots: 4
+    avaiableColors:
+    - {r: 0.6603774, g: 0.33373109, b: 0.23798506, a: 1}
+    - {r: 0.044022713, g: 0.62348557, b: 0.86415094, a: 1}
+    - {r: 0.5698112, g: 0.29135627, b: 0.4669749, a: 1}
+    - {r: 1, g: 0.77642834, b: 0.6622641, a: 1}
+    boredMouth: {fileID: 21300000, guid: 38df6801c6e67a04689dfff393612695, type: 3}
+    happyMouth: {fileID: 21300000, guid: 5368562c688caf24c9266cd77f7bd86e, type: 3}
+    irritatedMouth: {fileID: 21300000, guid: cb5a5ffa15d24904c92468f328bd57a3, type: 3}
+    laughtMouth: {fileID: 21300000, guid: b8a287fbd28443d49bacb001903585bd, type: 3}
+    desesperatedMouth: {fileID: 21300000, guid: 0ca64da9992195e4ea85990ec6a541e7, type: 3}
+  - species: Turtle
+    rarity: 4
+    prefab: {fileID: 6112376071038287889, guid: b447ac1a354d9e94ba29b63561cb1e34, type: 3}
+    baseHappyness: 4
+    baseBreath: 4
+    baseAnger: 3
+    tickleSpots: 4
+    avaiableColors:
+    - {r: 0.6040106, g: 1, b: 0.5943396, a: 1}
+    - {r: 0.2959558, g: 0.740919, b: 0.7433963, a: 1}
+    - {r: 0.7283019, g: 0.7035671, b: 0.542791, a: 1}
+    - {r: 0.30239224, g: 0.39784098, b: 0.4566037, a: 1}
+    boredMouth: {fileID: 21300000, guid: 8b4496c2f3db9c7449611e4ace177dbf, type: 3}
+    happyMouth: {fileID: 21300000, guid: f26cd55370c9d6146879ed5357a7c6cd, type: 3}
+    irritatedMouth: {fileID: 21300000, guid: 3c73af9be23b0fe41b42c1ba710de472, type: 3}
+    laughtMouth: {fileID: 21300000, guid: 89f02bc715a888e4a8c7c2bbc8135bb2, type: 3}
+    desesperatedMouth: {fileID: 21300000, guid: fdb382bf8e18ea24292059220c7f6f6d, type: 3}
   names:
   - Kim
   - Thomas
