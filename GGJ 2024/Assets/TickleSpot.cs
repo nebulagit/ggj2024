@@ -12,9 +12,12 @@ public class TickleSpot : MonoBehaviour
     {
         validity = GameplayManager.Instance.AtualTickleSpot == this ? Mathf.Clamp(validity - 0.0025f, 0, 1) : Mathf.Clamp(validity + 0.01f, 0, 1);
     }
-    void OnMouseEnter()
+    void OnMouseOver()
     {
-        GameplayManager.Instance.AtualTickleSpot = this;
+        if (Input.GetMouseButton(0))
+            GameplayManager.Instance.AtualTickleSpot = this;
+        else
+            GameplayManager.Instance.AtualTickleSpot = null;
     }
     void OnMouseExit()
     {

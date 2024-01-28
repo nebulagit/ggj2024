@@ -14,8 +14,6 @@ public class AnimalPrefab : MonoBehaviour
 
     void Start()
     {
-        Debug.Log(GameplayManager.Instance.CurrentAnimal.Species);
-
         for (int ts = 0; ts < tickleSpots.Length; ts++)
             tickleSpots[ts].Index = ts;
 
@@ -53,7 +51,7 @@ public class AnimalPrefab : MonoBehaviour
                     {
                         if (GameplayManager.Instance.CurrentAnimal.Enjoying < 50)
                         {
-                            eyes.sprite = normal;
+                            eyes.sprite = GameplayManager.Instance.CurrentAnimal.Breathing > 50 ? normal : bored;
                             mouth.sprite = AnimalData.Instance.Animals[GameplayManager.Instance.CurrentAnimal.Species].HappyMouth;
                         }
                         else

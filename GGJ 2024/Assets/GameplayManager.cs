@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameplayManager : MonoBehaviour
@@ -15,7 +16,7 @@ public class GameplayManager : MonoBehaviour
     AnimalPrefab animalPrefab;
 
     int changingAnimalTickleSpots, timeMil = 0;
-    List<int> finishedAnimals;
+    List<float> finishedAnimals = new(); public List<float> FinishedAnimals { get => finishedAnimals; }
 
     void Awake()
     {
@@ -37,7 +38,7 @@ public class GameplayManager : MonoBehaviour
                 currentAnimal.Enjoying = ReduceEnjoying(1f);
                 currentAnimal.Irritation = ReduceIrritation(0.5f);
             }
-            else
+            else if (Input.GetMouseButton(0))
             {
                 if (atualTickleSpot.IsDetestable)
                 {
@@ -69,6 +70,9 @@ public class GameplayManager : MonoBehaviour
             else
             {
                 timeMil --;
+                if (timeMil == -10)
+                    finishedAnimals.Add(currentAnimal.Enjoying *1.54f);
+
                 animalPrefab.transform.position = new Vector2(timeMil > -120 ? 0 : animalPrefab.transform.position.x - 0.2f, animalPrefab.transform.position.y);
                 if (animalPrefab.transform.position.x <= -20)
                 {
@@ -140,7 +144,12 @@ public class GameplayManager : MonoBehaviour
     void Tickles(bool _isTheFavoriteTickleSpot)
     {
         if (currentAnimal.Breathing >= 25)
-            currentAnimal.Enjoying = ImprovesEnjoying(_isTheFavoriteTickleSpot ? 4f : 1f);
+        {
+            if (currentAnimal.Breathing > 50)
+                currentAnimal.Enjoying = ImprovesEnjoying(_isTheFavoriteTickleSpot ? 4f : 1f);
+            else
+                currentAnimal.Enjoying = ImprovesEnjoying(_isTheFavoriteTickleSpot ? 2f : 0.5f);
+        }
         else
         {
             currentAnimal.Irritation = GetsIrritation(2f);
