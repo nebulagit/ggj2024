@@ -98,7 +98,7 @@ public class GameplayManager : MonoBehaviour
         while (!rarityCheck)
         {
             whatSpecies = (int)Mathf.Floor(Random.Range(1, AnimalData.Instance.Animals.Length - 1 + 0.99f));
-            int whatRarity = (int)Mathf.Floor(Random.Range(1, 5.99f));
+            int whatRarity = (int)Mathf.Floor(Random.Range(5, 10.99f));
             if (whatRarity >= AnimalData.Instance.Animals[whatSpecies].Rarity)
                 rarityCheck = true;
         }
@@ -172,6 +172,7 @@ public class GameplayManager : MonoBehaviour
     {
         currentAnimal = GenerateAnimal();
         animalPrefab = Instantiate(AnimalData.Instance.Animals[currentAnimal.Species].Prefab, new Vector2(20, -0.5f), Quaternion.identity).GetComponent<AnimalPrefab>();
+        animalPrefab.transform.localScale = new Vector2(0.9f, 0.9f);
         DefineTickleSpots(currentAnimal, currentAnimal.Species);
         starting = 120;
         timeSec = 20;
