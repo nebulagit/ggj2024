@@ -5,6 +5,7 @@ public class GameHud : MonoBehaviour
 {
     [SerializeField] RectTransform enjoy, breath, totalBar;
     [SerializeField] Image breathImage;
+    [SerializeField] GameObject popup;
 
     void FixedUpdate()
     {
@@ -19,7 +20,10 @@ public class GameHud : MonoBehaviour
             foreach(float animal in GameplayManager.Instance.FinishedAnimals)
                 totalBarLength += animal;
 
-            totalBar.sizeDelta = new Vector2(Mathf.Lerp(totalBar.sizeDelta.x, totalBarLength, 0.1f), totalBar.sizeDelta.y);
+            totalBar.sizeDelta = new Vector2(Mathf.Clamp(Mathf.Lerp(totalBar.sizeDelta.x, totalBarLength, 0.1f), 0, 620), totalBar.sizeDelta.y);
         }
+
+        if (popup.activeSelf)
+            totalBar.sizeDelta = new Vector2(0, totalBar.sizeDelta.y);
     }
 }

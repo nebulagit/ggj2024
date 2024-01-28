@@ -1,5 +1,6 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using System.Globalization;
+using TMPro;
 using UnityEngine;
 
 public class GameplayManager : MonoBehaviour
@@ -17,6 +18,22 @@ public class GameplayManager : MonoBehaviour
 
     int changingAnimalTickleSpots, timeMil = 0;
     List<float> finishedAnimals = new(); public List<float> FinishedAnimals { get => finishedAnimals; }
+    [SerializeField] AudioSource[] audioSources;
+    [SerializeField] GameObject finishGamePopup;
+    [SerializeField] TMP_Text finishDay, payment, dayText, moneyText, animalName;
+
+    public void NextDay()
+    {
+        Destroy(animalPrefab.gameObject);
+        day++;
+        finishedAnimals = new();
+        finishGamePopup.SetActive(false);
+        ResetAnimal();
+        dayText.text = "Day " + day.ToString();
+        moneyText.text = "Money $" + money.ToString();
+        timeSec = 20;
+        timeMil = 0;
+    }
 
     void Awake()
     {
@@ -27,9 +44,23 @@ public class GameplayManager : MonoBehaviour
         ResetAnimal();
         Hud.Instance.UpdateDay();
         Hud.Instance.UpdateMoney();
+
+        foreach(AudioSource audioSource in audioSources)
+            audioSource.volume = 0;
+
+        dayText.text = "Day " + day.ToString();
+        moneyText.text = "Money $" + money.ToString();
     }
     void FixedUpdate()
     {
+        for (int aS = 0; aS < audioSources.Length; aS++)
+        {
+            if (audioSources[currentAnimal.Species - 1].volume < 1)
+                audioSources[currentAnimal.Species - 1].volume += 0.005f;
+            if (audioSources[aS].volume > 0 && aS != currentAnimal.Species - 1)
+                audioSources[aS].volume -= 0.005f;
+        }
+
         starting = Mathf.Clamp(--starting, 0, starting);
         if (starting == 0 && timeSec > 0)
         {
@@ -69,16 +100,29 @@ public class GameplayManager : MonoBehaviour
                 animalPrefab.transform.position = new Vector2(starting > 0 && animalPrefab.transform.position.x > 0 ? animalPrefab.transform.position.x - 0.2f : 0, animalPrefab.transform.position.y);
             else
             {
-                timeMil --;
                 if (timeMil == -10)
-                    finishedAnimals.Add(currentAnimal.Enjoying *1.54f);
-
-                animalPrefab.transform.position = new Vector2(timeMil > -120 ? 0 : animalPrefab.transform.position.x - 0.2f, animalPrefab.transform.position.y);
-                if (animalPrefab.transform.position.x <= -20)
                 {
-                    Destroy(animalPrefab);
-                    ResetAnimal();
-                }        
+                    finishedAnimals.Add(currentAnimal.Enjoying *1.54f);
+                    if (finishedAnimals.Count == 5)
+                    {
+                        timeMil --;
+                        finishDay.text = "Day " + day;
+                        money += (int)finishedAnimals[0] + (int)finishedAnimals[1] + (int)finishedAnimals[2] + (int)finishedAnimals[3] + (int)finishedAnimals[4];
+                        payment.text = "Payment: $" + money.ToString();
+                        finishGamePopup.SetActive(true);
+                    }
+                }
+                    
+                if (finishedAnimals.Count < 5)
+                {
+                    timeMil --;
+                    animalPrefab.transform.position = new Vector2(timeMil > -120 ? 0 : animalPrefab.transform.position.x - 0.2f, animalPrefab.transform.position.y);
+                    if (animalPrefab.transform.position.x <= -20)
+                    {
+                        Destroy(animalPrefab.gameObject);
+                        ResetAnimal();
+                    }                 
+                }    
             }
         }
 
@@ -86,7 +130,7 @@ public class GameplayManager : MonoBehaviour
         {}
         else
             changingAnimalTickleSpots++;
-        if (changingAnimalTickleSpots > 180)
+        if (changingAnimalTickleSpots > Mathf.Clamp(180 - (day * 20), 120, 180))
         {
             DefineTickleSpots(currentAnimal, currentAnimal.Species);
             changingAnimalTickleSpots = 0;
@@ -102,7 +146,7 @@ public class GameplayManager : MonoBehaviour
         while (!rarityCheck)
         {
             whatSpecies = (int)Mathf.Floor(Random.Range(1, AnimalData.Instance.Animals.Length - 1 + 0.99f));
-            int whatRarity = (int)Mathf.Floor(Random.Range(5, 10.99f));
+            int whatRarity = (int)Mathf.Floor(Random.Range(0, 5.99f + (day - 1)));
             if (whatRarity >= AnimalData.Instance.Animals[whatSpecies].Rarity)
                 rarityCheck = true;
         }
@@ -189,5 +233,6 @@ public class GameplayManager : MonoBehaviour
         Hud.Instance.UpdateCurrentAnimal();
         Hud.Instance.UpdateAnimalStatus();
         Hud.Instance.UpdateTime();
+        animalName.text = currentAnimal.Name;
     }
 }
