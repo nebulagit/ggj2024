@@ -3,7 +3,7 @@ using UnityEngine;
 public class AnimalPrefab : MonoBehaviour
 {
     [SerializeField] TickleSpot[] tickleSpots; public TickleSpot[] TickleSpots { get => tickleSpots; set => tickleSpots = value; }
-    [SerializeField] Sprite normal, calm, bored, desesperated, happy, irrited;
+    [SerializeField] Sprite normal, calm, bored, desesperated, happy, irrited, bolt;
     [SerializeField] SpriteRenderer eyes, mouth, body, leftEar, rightEar, leftFoot, rightFoot, leftFrontFoot, rightFrontFoot, tail;
     [SerializeField] GameObject hearth;
     [SerializeField] Vector3 hearthSpawnPoint;
@@ -14,19 +14,27 @@ public class AnimalPrefab : MonoBehaviour
 
     void Start()
     {
+        Debug.Log(GameplayManager.Instance.CurrentAnimal.Species);
+
         for (int ts = 0; ts < tickleSpots.Length; ts++)
             tickleSpots[ts].Index = ts;
 
         body.color = GameplayManager.Instance.CurrentAnimal.Color;
         leftEar.color = GameplayManager.Instance.CurrentAnimal.Color;
         rightEar.color = GameplayManager.Instance.CurrentAnimal.Color;
-        leftFoot.color = GameplayManager.Instance.CurrentAnimal.Color;
-        rightFoot.color = GameplayManager.Instance.CurrentAnimal.Color;
+        if (GameplayManager.Instance.CurrentAnimal.Species != 5 && GameplayManager.Instance.CurrentAnimal.Species != 6)
+        {
+            leftFoot.color = GameplayManager.Instance.CurrentAnimal.Color;
+            rightFoot.color = GameplayManager.Instance.CurrentAnimal.Color;
+        }
         leftFrontFoot.color = GameplayManager.Instance.CurrentAnimal.Color;
         rightFrontFoot.color = GameplayManager.Instance.CurrentAnimal.Color;
         tail.color = GameplayManager.Instance.CurrentAnimal.Color;
 
         originalFacePosition = face.position.y;
+
+        if (GameplayManager.Instance.CurrentAnimal.Species == 4)
+            mouth.color = GameplayManager.Instance.CurrentAnimal.Color;
     }
     void FixedUpdate()
     {
@@ -72,12 +80,14 @@ public class AnimalPrefab : MonoBehaviour
                 }
             }
 
-            if (GameplayManager.Instance.AtualTickleSpot && !GameplayManager.Instance.AtualTickleSpot.IsDetestable && GameplayManager.Instance.CurrentAnimal.Breathing >= 25)
+            if (GameplayManager.Instance.AtualTickleSpot && ((!GameplayManager.Instance.AtualTickleSpot.IsDetestable && GameplayManager.Instance.CurrentAnimal.Breathing >= 25) || GameplayManager.Instance.AtualTickleSpot.IsDetestable))
             {
-                hearthSpawn += (GameplayManager.Instance.AtualTickleSpot.IsFavorite && GameplayManager.Instance.CurrentAnimal.Enjoying < 50 ? 2 : GameplayManager.Instance.AtualTickleSpot.IsFavorite && GameplayManager.Instance.CurrentAnimal.Enjoying >= 50 ? 4 : 1) * GameplayManager.Instance.AtualTickleSpot.Validity;
+                hearthSpawn += ((GameplayManager.Instance.AtualTickleSpot.IsFavorite && GameplayManager.Instance.CurrentAnimal.Enjoying < 50 || GameplayManager.Instance.AtualTickleSpot.IsDetestable) ? 2 : GameplayManager.Instance.AtualTickleSpot.IsFavorite && GameplayManager.Instance.CurrentAnimal.Enjoying >= 50 ? 4 : 1) * GameplayManager.Instance.AtualTickleSpot.Validity;
                 if (hearthSpawn > 22)
                 {
-                    Instantiate(hearth, hearthSpawnPoint, Quaternion.identity);
+                    SpriteRenderer spriteRenderer = Instantiate(hearth, hearthSpawnPoint, Quaternion.identity).GetComponent<SpriteRenderer>();
+                    if (GameplayManager.Instance.AtualTickleSpot.IsDetestable)
+                        spriteRenderer.sprite = bolt;
                     hearthSpawn -= 22;
                 }
             }

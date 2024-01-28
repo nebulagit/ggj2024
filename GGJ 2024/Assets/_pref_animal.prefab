@@ -230,6 +230,7 @@ MonoBehaviour:
   desesperated: {fileID: 21300000, guid: bc62bdaa4a41efe429771d492f406f3c, type: 3}
   happy: {fileID: 21300000, guid: f4826248ce1839b46a7838c54fd07c34, type: 3}
   irrited: {fileID: 21300000, guid: fb20c94526df1644c93955fecf79fa9b, type: 3}
+  bolt: {fileID: 21300000, guid: cbb78d0c2f8a744479968fc18a298a0f, type: 3}
   eyes: {fileID: 510172254711702925}
   mouth: {fileID: 8035883708794009473}
   body: {fileID: 4983603817063020532}
@@ -315,7 +316,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
