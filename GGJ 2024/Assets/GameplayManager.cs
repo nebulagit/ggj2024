@@ -20,7 +20,7 @@ public class GameplayManager : MonoBehaviour
     List<float> finishedAnimals = new(); public List<float> FinishedAnimals { get => finishedAnimals; }
     [SerializeField] AudioSource[] audioSources;
     [SerializeField] GameObject finishGamePopup;
-    [SerializeField] TMP_Text finishDay, payment, dayText, moneyText, animalName;
+    [SerializeField] TMP_Text finishDay, payment, dayText, moneyText, animalName, timerText;
 
     public void NextDay()
     {
@@ -53,6 +53,8 @@ public class GameplayManager : MonoBehaviour
     }
     void FixedUpdate()
     {
+        timerText.text = timeSec.ToString();
+
         for (int aS = 0; aS < audioSources.Length; aS++)
         {
             if (audioSources[currentAnimal.Species - 1].volume < 1)

@@ -203,6 +203,7 @@ MonoBehaviour:
   dayText: {fileID: 924629302}
   moneyText: {fileID: 678670885}
   animalName: {fileID: 810083168}
+  timerText: {fileID: 1876591388}
 --- !u!4 &334653881
 Transform:
   m_ObjectHideFlags: 0
@@ -1193,13 +1194,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 673332515169942374, guid: 732ac5128c790fe4fb3c69cd7ff12d1b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4083829530108333351, guid: 732ac5128c790fe4fb3c69cd7ff12d1b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 440
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4083829530108333351, guid: 732ac5128c790fe4fb3c69cd7ff12d1b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -162
+      value: -197.26
       objectReference: {fileID: 0}
     - target: {fileID: 4351508695511967161, guid: 732ac5128c790fe4fb3c69cd7ff12d1b, type: 3}
       propertyPath: m_Pivot.x
@@ -1281,6 +1286,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6319893968705934055, guid: 732ac5128c790fe4fb3c69cd7ff12d1b, type: 3}
+      propertyPath: m_fontSize
+      value: 45.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6319893968705934055, guid: 732ac5128c790fe4fb3c69cd7ff12d1b, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 45.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7163403001407372874, guid: 732ac5128c790fe4fb3c69cd7ff12d1b, type: 3}
+      propertyPath: popup
+      value: 
+      objectReference: {fileID: 4074412}
     - target: {fileID: 7688176386267313607, guid: 732ac5128c790fe4fb3c69cd7ff12d1b, type: 3}
       propertyPath: m_Name
       value: _pref_hud
@@ -1656,6 +1673,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1876591388 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6319893968705934055, guid: 732ac5128c790fe4fb3c69cd7ff12d1b, type: 3}
+  m_PrefabInstance: {fileID: 724102684}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
